@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            transition: background-color 0.3s;
+        }
+
+        .container {
+            background-color: #fff;
+            color: #333;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+            transition: background-color 0.3s;
+        }
+
+        textarea {
+            width: calc(100% - 20px);
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: none;
+            transition: background-color 0.3s;
+        }
+
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-section input {
+            width: calc(100% - 20px);
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .word-display {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        button {
+            width: 100%;
+            margin: 5px;
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .custom-file-upload {
+            display: inline-block;
+            width: 100%;
+            padding: 10px 0;
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #2980b9;
+        }
+
+        audio {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        progress {
+            width: 100%;
+            height: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: none;
+            background-color: #ddd;
+            border-radius: 5px;
+        }
+
+        /* Estilos para el modo nocturno */
+        body.dark-mode {
+            transition: background-color 0.3s;
+        }
+
+        .container.dark-mode {
+            background-color: #444;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        textarea.dark-mode {
+            background-color: #555;
+            color: #fff;
+        }
+
+        .input-section input.dark-mode {
+            background-color: #555;
+            color: #fff;
+        }
+
+        button.dark-mode,
+        .custom-file-upload.dark-mode {
+            background-color: #333;
+            color: #fff;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .custom-file-upload.dark-mode:hover {
+            background-color: #2980b9;
+        }
+
+        @media (max-width: 480px) {
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+    <title>Corrección Ortográfica en Español</title>
+</head>
+
+<body>
+    <audio id="audio">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <div class="container" id="mainContainer">
+        <textarea id="userInput" placeholder="Escribe tu texto aquí..."></textarea>
+        <div id="output"></div>
+        <div class="input-section">
+            <div class="word-display" id="wordDisplay"></div>
+            <input id="inputWord" placeholder="Escribe la palabra mostrada">
+            <button onclick="proporcionarPalabra()">Proporcionar Palabra</button>
+        </div>
+        <div class="feedback" id="feedback"></div>
+        <button onclick="corregirTexto()">Corregir Ortografía</button>
+        <button onclick="toggleDarkMode()">Modo Nocturno</button>
+        <input type="file" id="audioFile" accept="audio/*" onchange="cargarAudio()">
+        <label for="audioFile" class="custom-file-upload">Elegir Archivo</label>
+        <button onclick="reproducirAudio()">Reproducir Audio</button>
+        <button onclick="detenerAudio()">Detener Audio</button>
+        <progress id="progressBar" value="0" max="100"></progress>
+    </div>
+
+    <script>
+        const palabrasCorrectas = [
+            "Quimérico", "Xilófono", "Ubérrimo", "Inextricable", "Oftálmico",
+            // (Lista completa de palabras)
+        ];
+
+        let index = 0;
+        let isDarkMode = false;
+        let audioCurrentTime = 0;
+
+        function toggleDarkMode() {
+            const body = document.body;
+            const container = document.getElementById('mainContainer');
+            const textarea = document.getElementById('userInput');
+            const inputElements = document.querySelectorAll('.input-section input, button, .custom-file-upload');
+            const outputDiv = document.getElementById('output');
+
+            isDarkMode = !isDarkMode;
+
+            if (isDarkMode) {
+                body.classList.add('dark-mode');
+                container.classList.add('dark-mode');
+                textarea.classList.add('dark-mode');
+                inputElements.forEach(element => element.classList.add('dark-mode'));
+                outputDiv.style.color = '#fff';
+            } else {
+                body.classList.remove('dark-mode');
+                container.classList.remove('dark-mode');
+                textarea.classList.remove('dark-mode');
+                inputElements.forEach(element => element.classList.remove('dark-mode'));
+                outputDiv.style.color = '#333';
+            }
+        }
+
+        function proporcionarPalabra() {
+            const inputWord = document.getElementById('inputWord');
+            const userInput = document.getElementById('userInput');
+            const feedback = document.getElementById('feedback');
+            const wordDisplay = document.getElementById('wordDisplay');
+
+            index = (index < palabrasCorrectas.length) ? index : 0;
+
+            inputWord.value = '';
+            wordDisplay.innerHTML = `Palabra Mostrada: ${palabrasCorrectas[index]}`;
+            userInput.value = palabrasCorrectas[index] + ' ';
+            index++;
+            feedback.innerHTML = '';
+        }
+
+        function corregirTexto() {
+            const userInput = document.getElementById('userInput').value;
+            const inputWord = document.getElementById('inputWord').value;
+            const feedback = document.getElementById('feedback');
+
+            const correctedText = corregirOrtografia(userInput, palabrasCorrectas);
+
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = correctedText;
+
+            const textColor = isDarkMode ? '#fff' : '#333';
+            outputDiv.style.color = textColor;
+
+            if (inputWord.toLowerCase().trim() === palabrasCorrectas[index - 1].toLowerCase().trim()) {
+                feedback.innerHTML = '¡Correcto!';
+            } else {
+                feedback.innerHTML = `La palabra correcta es "${palabrasCorrectas[index - 1]}".`;
+            }
+        }
+
+        function corregirOrtografia(texto, palabrasCorrectas) {
+            const palabras = texto.split(' ');
+            const correctedWords = palabras.map(palabra => {
+                return palabrasCorrectas.includes(palabra.toLowerCase()) ? `<span style="color: green;">${palabra}</span>` : `<span style="color: red;">${palabra}</span>`;
+            });
+
+            return correctedWords.join(' ');
+        }
+
+        function cargarAudio() {
+            const audioFile = document.getElementById('audioFile');
+            const audio = document.getElementById('audio');
+
+            const file = audioFile.files[0];
+
+            if (file) {
+                const objectURL = URL.createObjectURL(file);
+                audio.src = objectURL;
+                audioCurrentTime = 0;
+                reiniciarBarraProgreso();
+            }
+        }
+
+        function reproducirAudio() {
+            const audio = document.getElementById('audio');
+            audio.currentTime = audioCurrentTime;
+            audio.play();
+            actualizarBarraProgreso();
+        }
+
+        function detenerAudio() {
+            const audio = document.getElementById('audio');
+            audio.pause();
+            audioCurrentTime = audio.currentTime;
+            reiniciarBarraProgreso();
+        }
+
+        function actualizarBarraProgreso() {
+            const audio = document.getElementById('audio');
+            const progressBar = document.getElementById('progressBar');
+            const duration = audio.duration;
+            let currentTime = audio.currentTime;
+
+            const percentage = (currentTime / duration) * 100;
+            progressBar.value = percentage;
+
+            const updateProgress = () => {
+                currentTime = audio.currentTime;
+                const newPercentage = (currentTime / duration) * 100;
+                progressBar.value = newPercentage;
+                if (currentTime < duration) {
+                    requestAnimationFrame(updateProgress);
+                }
+            };
+
+            requestAnimationFrame(updateProgress);
+        }
+
+        function reiniciarBarraProgreso() {
+            const progressBar = document.getElementById('progressBar');
+            progressBar.value = 0;
+        }
+    </script>
+</body>
+
+</html>
