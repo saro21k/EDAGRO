@@ -222,8 +222,8 @@
       var cantidadNetaConsumo = cantidadForrajeArea - descuentoMalezaPisoteo;
       var cantidadForrajeAprovechableHa = cantidadNetaConsumo / area;
       var consumoForrajeVerdeDiaLote = 450 * 0.10 * (totalUGG / 100);
-      var periodoPermanenciaDias = cantidadNetaConsumo / consumoForrajeVerdeDiaLote / 10
-      var totalConsumoPeriodoRotacion = consumoForrajeVerdeDiaLote * 42;
+      var periodoPermanenciaDias = cantidadNetaConsumo / consumoForrajeVerdeDiaLote / 10000
+      var totalConsumoPeriodoRotacion = consumoForrajeVerdeDiaLote * 42
       var areaDisponiblePorLote = totalConsumoPeriodoRotacion / cantidadForrajeAprovechableHa;
       var areaDisponibleLote = areaDisponiblePorLote;
       var capacidadCarga = cantidadForrajeAprovechableHa / areaDisponibleLote;
@@ -236,11 +236,11 @@
       resultsDiv.innerHTML += '<p><strong>DESCUENTO MALEZA Y PISOTEO:</strong> ' + (descuentoMalezaPisoteo / 100).toLocaleString('en-US', { maximumFractionDigits: 2 }) + ' kg</p>';
       resultsDiv.innerHTML += '<p><strong>CANTIDAD DE CONSUMO PARA LOS ANIMALES:</strong> ' + cantidadNetaConsumo.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' kg</p>';
       resultsDiv.innerHTML += '<p><strong>CANTIDAD DE FORRAJE APROVECHABLE POR Ha:</strong> ' + cantidadForrajeAprovechableHa.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' kg</p>';
-      resultsDiv.innerHTML += '<p><strong>CONSUMO DE FORRAJE VERDE DIA LOTE:</strong> ' + consumoForrajeVerdeDiaLote.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' kg</p>';
+      resultsDiv.innerHTML += '<p><strong>CONSUMO DE FORRAJE VERDE DIA LOTE:</strong> ' + consumoForrajeVerdeDiaLote.toFixed(2).replace(/[.,]/g, "") + ' kg</p>';
       resultsDiv.innerHTML += '<p><strong>DIAS DE PERMANENCIA:</strong> ' + (periodoPermanenciaDias * 100).toLocaleString('en-US', { maximumFractionDigits: 0 }) + ' días</p>';
-      resultsDiv.innerHTML += '<p><strong>CONSUMO TODO EL PERIODO DE ROTACION:</strong> ' + (totalConsumoPeriodoRotacion / 1000).toLocaleString('en-US', { maximumFractionDigits: 2 }) + ' kg</p>';
-      resultsDiv.innerHTML += '<p><strong>ÁREA DISPONIBLE PARA EL LOTE:</strong> ' + (areaDisponibleLote).toLocaleString('en-US', { maximumFractionDigits: 2 }) + ' Ha</p>';
-      resultsDiv.innerHTML += '<p><strong>CAPACIDAD DE CARGA:</strong> ' + capacidadCarga.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' animales por Ha</p>';
+      resultsDiv.innerHTML += '<p><strong>CONSUMO TODO EL PERIODO DE ROTACION:</strong> ' + (totalConsumoPeriodoRotacion / 1000).toLocaleString('en-US', { maximumFractionDigits: 2 }).replace(/[.,]/g, "") + ' kg</p>';
+      resultsDiv.innerHTML += '<p><strong>ÁREA DISPONIBLE PARA EL LOTE:</strong> ' + (areaDisponibleLote).toLocaleString('en-US', { maximumFractionDigits: 2 }).replace(/[.,]/g, "") + ' Ha</p>';
+      resultsDiv.innerHTML += '<p><strong>CAPACIDAD DE CARGA:</strong> ' + capacidadCarga.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",").slice(0, 3) + ' animales por Ha</p>';
     }
 
     document.getElementById('calcularForm').addEventListener('submit', function(event) {
