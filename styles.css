@@ -1,0 +1,72 @@
+/* styles.css */
+
+/* Estilos generales */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+/* Estilos del encabezado */
+header {
+  background-color: #2ecc71;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+/* Estilos del contenido principal */
+main {
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 20px;
+  border: 2px solid #2ecc71;
+  border-radius: 10px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+section h2 a {
+  color: #2ecc71;
+  text-decoration: none;
+}
+
+section h2 a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos del pie de página */
+footer {
+  background-color: #2ecc71;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+}
+
+/* Estilos de los botones */
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #2ecc71;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #28a745;
+}
