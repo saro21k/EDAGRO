@@ -1,0 +1,48 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  header {
+    background-color: #2ecc71;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+  }
+  
+  header h1 {
+    margin: 0;
+  }
+  
+  main {
+    padding: 20px;
+  }
+  
+  section {
+    margin-bottom: 20px;
+    border: 2px solid #2ecc71;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  
+  section h2 a {
+    color: #2ecc71;
+    text-decoration: none;
+  }
+  
+  section h2 a:hover {
+    text-decoration: underline;
+  }
+  
+  footer {
+    background-color: #2ecc71;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+  }
+  
