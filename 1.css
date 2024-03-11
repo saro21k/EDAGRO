@@ -1,15 +1,16 @@
 /* Estilos generales */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: #f9f9f9;
+  color: #444;
+  line-height: 1.6;
 }
 
 /* Estilos del encabezado */
 header {
-  background-color: #2ecc71;
+  background-color: #2c3e50;
   color: #fff;
   padding: 20px 0;
   text-align: center;
@@ -17,6 +18,7 @@ header {
 
 header h1 {
   margin: 0;
+  font-size: 36px;
 }
 
 /* Estilos del contenido principal */
@@ -27,19 +29,31 @@ main {
 /* Estilos de las secciones */
 section {
   margin-bottom: 20px;
-  border: 2px solid #2ecc71;
+  border: 2px solid #27ae60;
   border-radius: 10px;
   padding: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 section:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+section h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+section p {
+  font-size: 16px;
+  line-height: 1.8;
 }
 
 section h2 a {
-  color: #2ecc71;
+  color: #27ae60;
   text-decoration: none;
 }
 
@@ -49,23 +63,49 @@ section h2 a:hover {
 
 /* Estilos del pie de página */
 footer {
-  background-color: #2ecc71;
+  background-color: #2c3e50;
   color: #fff;
-  padding: 10px 0;
+  padding: 20px 0;
   text-align: center;
 }
 
 /* Estilos de los botones */
 .button {
   display: inline-block;
-  padding: 10px 20px;
-  background-color: #2ecc71;
+  padding: 12px 24px;
+  background-color: #27ae60;
   color: #fff;
   text-decoration: none;
-  border-radius: 20px;
+  border: none;
+  border-radius: 25px;
   transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 .button:hover {
-  background-color: #28a745;
+  background-color: #219653;
+}
+
+/* Reglas de medios para dispositivos móviles */
+@media screen and (max-width: 768px) {
+  header h1 {
+    font-size: 28px;
+  }
+
+  section {
+    padding: 15px;
+  }
+
+  section h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  section p {
+    font-size: 14px;
+  }
+
+  .button {
+    padding: 10px 20px;
+  }
 }
